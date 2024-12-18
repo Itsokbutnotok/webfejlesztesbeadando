@@ -10,7 +10,7 @@
 <div class="container">
     <h1 class="text-center my-4">Ezek a cégünk buszai</h1>
 
-    <a href="/templates/buszok/create" class="btn btn-primary">Bussz hozzáadása</a>
+    <a href="/buszok/create" class="btn btn-primary">Bussz hozzáadása</a>
 
     <table>
         <thead>
@@ -27,14 +27,18 @@
         <tbody>
             <tr th:each = "busz:${buszok}">
                 <td>
-                    <img th:src="@{'/images/' + ${busz.imageFileName}}" width="100">
+                    <img th:src="@{'/images/' + ${busz.imageFileName}}" width="200">
                 </td>
                 <td th:text="${busz.rendszam}"></td>
                 <td th:text="${busz.tipus}"></td>
                 <td th:text="${busz.ulesekSzama}"></td>
                 <td th:text="${busz.muszakierv.toString().substring(0,10)}"></td>
-                <td><a th:href="@{/buszok/update/{id}(id=${busz.id})}" class="btn btn-warning">Update</a></td>
-                <td><a th:href="@{/buszok/delete/{id}(id=${busz.id})}" class="btn btn-danger">Delete</a></td>
+                <td><a th:href="@{/buszok/editbusz(id=${busz.id})}"
+                       class="btn btn-warning">Módosítás</a></td>
+                <td><a th:href="@{/buszok/delete(id=${busz.id})}"
+                        class="btn btn-danger"
+                        onclick="return confirm('Biztosan szeretnéd kitörölni? Ez visszafordíthatatlan')"
+                    >Delete</a></td>
             </tr>
         </tbody>
     </table>
