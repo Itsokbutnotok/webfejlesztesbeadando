@@ -10,18 +10,18 @@
 <div class="container">
     <h1 class="text-center my-4">Ezek a cégünk buszai</h1>
 
-    <a href="/buszok/create" class="btn btn-primary">Bussz hozzáadása</a>
+    <a href="/buszok/create" class="btn btn-primary">Busz hozzáadása</a>
 
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th></th>
-                <th>rendszam</th>
-                <th>tipus</th>
-                <th>ferohely</th>
-                <th>muszakierv</th>
-                <th>update</th>
-                <th>delete</th>
+                <th>Rendszám</th>
+                <th>Típus</th>
+                <th>Férőhely</th>
+                <th>Műszaki érvényessége</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@
                 <td><a th:href="@{/buszok/delete(id=${busz.id})}"
                         class="btn btn-danger"
                         onclick="return confirm('Biztosan szeretnéd kitörölni? Ez visszafordíthatatlan')"
-                    >Delete</a></td>
+                    >Törlés</a></td>
             </tr>
         </tbody>
     </table>

@@ -112,39 +112,34 @@ public class BuszController {
                 return "buszok/editbusz";
             }
 
-            if (!buszDTO.getImage().isEmpty()) {
-                String updoadDir = "public/images/";
-                Path oldImagePath = Paths.get(updoadDir + busz.getImageFileName());
-                try {
-                    Files.delete(oldImagePath);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-
-                MultipartFile image = buszDTO.getImage();
-                Date createdAt = new Date();
-                String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
-
-                try (InputStream inputStream = image.getInputStream()) {
-                    Files.copy(inputStream, Paths.get(updoadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
             busz.setRendszam(buszDTO.getRendszam());
             busz.setTipus(buszDTO.getTipus());
             busz.setMuszakierv(buszDTO.getMuszakierv());
             busz.setUlesekSzama(Integer.parseInt(buszDTO.getUlesekSzama()));
 
             buszRepository.save(busz);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/buszok";
         }
+        return "redirect:/buszok";
+    }
 
+    @GetMapping("/delete")
+    public String deleteBusz(@RequestParam int id) {
+        try {
+            Busz busz = buszRepository.findById(id).get();
 
+            Path path = Paths.get("public/images/" + busz.getImageFileName());
+            try {
+                Files.delete(path);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            buszRepository.delete(busz);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return "redirect:/buszok";
     }
 }
